@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<link>
+    <dbconfig type="mysql">
+        <url>localhost:3306</url>
+        <user>root</user>
+        <password>root</password>
+        <dbname>hxtaxi</dbname>
+    </dbconfig>
+</link>

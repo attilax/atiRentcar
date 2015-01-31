@@ -1,0 +1,4 @@
+{
+"method":"sql",
+"param":"  SELECT * FROM `mall_user_info` where user_id=8"
+}

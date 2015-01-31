@@ -1,0 +1,7 @@
+Lpn,sn
+Brandid,Brandid
+Gearbox,speedtype
+pickupLocation,streets
+Price,Price
+Displacement,pailiang
+description,seller_note
