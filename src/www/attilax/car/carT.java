@@ -4,6 +4,7 @@ import java.util.Map;
 
 import net.sf.json.JSONObject;
 
+import com.attilax.car.HxCar;
 import com.attilax.io.pathx;
 import com.attilax.lang.core;
 import com.attilax.lang.ref.FldMapX;
@@ -30,12 +31,12 @@ public class carT {
 		System.out.println(json_s);
 		
 		JSONObject jo=JSONObject.fromObject(json_s);
-		CarVo car=new CarVo();
+		HxCar car=new HxCar();
 	Map fldMpper=	FldMapX.frmTxt(pathx.classPath(carT.class)+"/carMap.txt");
 	System.out.println(core.toJsonStrO88(fldMpper));
 	RefX.copyProperties(jo, car,fldMpper);	 
-	CarDAOImp cdc=new CarDAOImp();
-			cdc.save(car);
+//	CarDAOImp cdc=new CarDAOImp();
+//			cdc.save(car);
 	System.out.println(core.toJsonStrO88(car));
 	
 	

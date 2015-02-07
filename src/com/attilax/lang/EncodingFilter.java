@@ -26,6 +26,7 @@ public class EncodingFilter implements Filter {
 
 	public void doFilter(ServletRequest request, ServletResponse response,
 			FilterChain chain) throws IOException, ServletException {
+		System.out.println("--");
 		
 	//	core.log("--loadorderO9::EncodingFilter");
 		//用init方法取得的charset覆盖被拦截下来的request对象的charset  

@@ -1,6 +1,7 @@
 /**
  * 
  */
+
 package com.attilax.cfg;
 
 import java.util.HashMap;
@@ -30,15 +31,18 @@ import com.attilax.net.ResponseX;
 import com.attilax.net.requestImp;
 import com.attilax.persistence.PX;
 import com.attilax.time.timeUtil;
+import com.attilax.user.UserService;
 import com.kunpeng.www.dao.CarDAOImp;
 //import com.attilax.withdraw.Withdraw;
 import com.kunpeng.www.domain.CarVo;
 import com.kunpeng.www.server.AppAction;
 
 /**
+
  * @author ASIMO
  *
  */
+@SuppressWarnings("all")
 public class ApiInier {
 
 		/**   
@@ -46,6 +50,7 @@ public class ApiInier {
 		@since   p1q d_40_37
 		 
 		 */
+	
 	public void ini() {
 		HandlerChain.mp.put("addCar",  new Handler() {
 
@@ -58,6 +63,10 @@ public class ApiInier {
 				System.out.println(core.toJsonStrO88(fldMpper));
 				RefX.copyProperties(jo, car,fldMpper);	 
 				PX px=IocX.getBean(PX.class);
+				//p24  convert tel2 uid
+				UserService us=IocX.getBean(UserService.class);
+				Map u=us.getByTel(jo.get("uacc"));
+				car.setCustomerId((Integer) u.get("id"));
 			 	px.save(car);
 
 				// System.out.println(core.toJsonStrO88(g));
