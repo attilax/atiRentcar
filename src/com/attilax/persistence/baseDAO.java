@@ -11,6 +11,8 @@ import com.attilax.persistence.Hbx;
 import com.attilax.ref.cantFindIDFieldEx;
 import com.attilax.ref.cantFindMatchFieldException;
 import com.attilax.ref.refx;
+import com.google.inject.Inject;
+import com.google.inject.name.Named;
 //import com.attilax.util.HibernateSessionFactory;
  
  
@@ -47,7 +49,7 @@ import org.slf4j.LoggerFactory;
   * @author MyEclipse Persistence Tools 
  */
  @Deprecated 
-public class baseDAO    {
+public class baseDAO   extends PX  {
 	     private static final Logger log = LoggerFactory.getLogger(baseDAO.class);
 		//property constants
 	public static final String SCREEN = "screen";
@@ -62,7 +64,10 @@ public static void main(String[] args) {
 //	System.out.println(e.getEquipmentId());
 
 }
+@Inject
+@Named(value = "thql")
 public 	String testHql = "";
+@Inject
 public  SessionFactory fac;
 public   Session getSession() {
 	// attilax 老哇的爪子 i4148 o78

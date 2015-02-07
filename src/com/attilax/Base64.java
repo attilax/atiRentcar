@@ -1,9 +1,13 @@
 package com.attilax;
 
 import java.io.CharArrayWriter;
+import java.io.File;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 
+import org.apache.commons.io.FileUtils;
+
+import com.attilax.io.filex;
 import com.attilax.text.strUtil;
 /**
  * 
@@ -20,7 +24,17 @@ public class Base64 {
 		System.out.println(decode("yKu5+tPKseDH+LrFy9HL9w=="));
 		System.out.println(encode("建筑"));
 		System.out.println(encode("建筑","utf-8"));
+		byte[] ba=	FileUtils.readFileToByteArray(new File("c:/star.png"));
+		String encode2Str = Base64.encode2Str(ba);
+		filex.save(encode2Str, "c:\\0base.txt");
+		System.out.println(encode2Str);	
 	}
+	
+	
+	  public static String encode2Str(byte[] content) 
+	    {
+	    	return new String( encode(content));
+	    }
     			/**
 		@author attilax 老哇的爪子
 		@since   obl 9_53_x

@@ -3,6 +3,7 @@
  */
 package com.attilax.lang.ref;
 
+import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.util.HashMap;
 import java.util.List;
@@ -33,18 +34,47 @@ public class FldMapX {
 			String jsonKeyname = stItem.toString();
 			// if(jsonKeyname.trim().equals("alipay"))
 
-			try {
+			 
 				String objFld = fldmapTable.get(jsonKeyname).toString();
-				BeanUtils.copyProperty(o, objFld, jo.get(jsonKeyname));
-			} catch (IllegalAccessException e) {
-
-				e.printStackTrace();
-			} catch (InvocationTargetException e) {
-
-				e.printStackTrace();
-			}
+				copyProperty(o, objFld, jo.get(jsonKeyname));
+				
+			 
 
 		}
+	}
+
+		/**
+		@author attilax 老哇的爪子
+		@since   p26 j_k_59
+		 
+		 */
+	private static void copyProperty(Object o, String objFld, Object object) {
+		try {
+			BeanUtils.copyProperty(o, objFld, object);
+		} catch (IllegalAccessException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (InvocationTargetException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		Field[] fds=o.getClass().getDeclaredFields();
+		for (Field field : fds) {
+			if(field.getName().replaceAll("_", "").toLowerCase().equals(RefX.getUniName(objFld)))
+			{
+				try {
+					BeanUtils.copyProperty(o, field.getName(), object);
+				} catch (IllegalAccessException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} catch (InvocationTargetException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+		}
+	
+		
 	}
 
 	public static Map frmTxt(String f) {

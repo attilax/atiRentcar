@@ -1,172 +1,173 @@
-package com.kunpeng.www.controller;
-
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.util.Arrays;
-import java.util.List;
-import java.util.UUID;
-
-import javax.servlet.ServletException;
-import javax.servlet.ServletInputStream;
-import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
-import org.apache.tomcat.util.http.fileupload.FileItem;
-import org.apache.tomcat.util.http.fileupload.FileUploadBase;
-import org.apache.tomcat.util.http.fileupload.FileUploadException;
-import org.apache.tomcat.util.http.fileupload.disk.DiskFileItemFactory;
-import org.apache.tomcat.util.http.fileupload.servlet.ServletFileUpload;
-
-
-/**
- * Servlet implementation class UpLoadPic
- */
-@WebServlet("/UpLoadPic")
-public class UpLoadPic extends HttpServlet {
-	private static final long serialVersionUID = 1L;
-       
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public UpLoadPic() {
-        super();
-        // TODO Auto-generated constructor stub
-    }
-    static int i = 0;
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
-	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-	//	response.setCharacterEncoding("utf-8");
-		/*
-	   ServletInputStream sis = request.getInputStream();
-		File f = new File("e:\\", "b.txt");
-		FileOutputStream fos = new FileOutputStream(f);
-		byte[] b = new byte[1024];
-		int n;
-		while ((n = sis.read(b)) != -1) {
-			String str = new String(b);
-			System.out.println(str);
-			fos.write(b, 0, n);
-		}
-
-		fos.close();
-		sis.close();
-		*/
-		//ÉÏ´«Í¼Æ¬´úÂë
-		
-		/*ServletInputStream in = request.getInputStream();
-		File file = new File(request.getSession().getServletContext().getRealPath("/img/"), "img_" + i + ".jpg");
-				// response.getWriter().append(file.getPath());
-				FileOutputStream out =new FileOutputStream(file);
-			
-				byte[] bytes = new byte[1024];
-				int len=in.read(bytes, 0, 1024);
-				while(len!=-1)
-				{
-					out.write(bytes, 0, len);
-					 len=in.read(bytes, 0, 1024);
-				}
-
-				out.close();
-				in.close();*/
-		
-		
-				/*
-				 DiskFileItemFactory factory = new DiskFileItemFactory(1024*1024*5,new File(this.getServletContext().getRealPath("\\") +"uploadfiles"));        
-				 // ÉèÖÃ»º³åÇø´óÐ¡Îª 5M              
-				 factory.setSizeThreshold(1024 * 1024 * 5);	
-				 
-				// ´´½¨Ò»¸öÎÄ¼þÉÏ´«µÄ¾ä±ú           
-				 ServletFileUpload upload = new ServletFileUpload(factory);        
-				 //ÉèÖÃÉÏ´«ÎÄ¼þµÄÕû¸ö´óÐ¡ºÍÉÏ´«µÄµ¥¸öÎÄ¼þ´óÐ¡         
-				 upload.setSizeMax(1024*1024*50);           
-				 upload.setFileSizeMax(1024*1024*5);          
-				 try {                
-					 //°ÑÒ³Ãæ±íµ¥ÖÐµÄÃ¿Ò»¸ö±íµ¥ÔªËØ½âÎö³ÉÒ»¸öFileItem    
-					 List<FileItem> items = upload.parseRequest(request);      
-					 for (FileItem fileItem : items) {              
-						 //Èç¹ûÊÇÒ»¸öÆÕÍ¨µÄ±íµ¥ÔªËØ(type²»ÊÇfileµÄ±íµ¥ÔªËØ)       
-						 if(fileItem.isFormField()){          
-							 System.out.println(fileItem.getFieldName());  //µÃµ½¶ÔÓ¦±íµ¥ÔªËØµÄÃû×Ö   
-							 System.out.println(fileItem.getString());  //µÃµ½±íµ¥ÔªËØµÄÖµ          
-							 }else{                           
-								 //»ñÈ¡ÎÄ¼þµÄºó×ºÃû         
-								 String fileName = fileItem.getName();//µÃµ½ÎÄ¼þµÄÃû×Ö          
-								 String fileExt = fileName.substring(fileName.lastIndexOf(".")+1, fileName.length());        
-									 try {                                  
-										 //½«ÎÄ¼þÉÏ´«µ½ÏîÄ¿µÄuploadÄ¿Â¼²¢ÃüÃû£¬getRealPath¿ÉÒÔµÃµ½¸ÃwebÏîÄ¿ÏÂ°üº¬/uploadµÄ¾ø¶ÔÂ·¾¶//    
-										 fileItem.write(new File(request.getServletContext().getRealPath("/uploadfiles")+"/" + UUID.randomUUID().toString()+"."+fileExt));                                 
-										 fileItem.write(new File(request.getSession().getServletContext().getRealPath("/img/"), "img_" + i + ".jpg"));                  
-										      
-										 } catch (Exception e) {             
-											 e.printStackTrace();          
-											 }                       
-								 }                   
-						 }            
-					 } catch (FileUploadBase.SizeLimitExceededException e) {       
-						 System.out.println("Õû¸öÇëÇóµÄ´óÐ¡³¬¹ýÁË¹æ¶¨µÄ´óÐ¡...");     
-						 } catch (FileUploadBase.FileSizeLimitExceededException e) {     
-							 System.out.println("ÇëÇóÖÐÒ»¸öÉÏ´«ÎÄ¼þµÄ´óÐ¡³¬¹ýÁË¹æ¶¨µÄ´óÐ¡...");    
-							 }catch (FileUploadException e) {              
-								 e.printStackTrace();           
-							}
-									 
-					 */
-				 
-				 
-				 
-				 
-				 
-				 
-				
-		DiskFileItemFactory factory = new DiskFileItemFactory();
-		ServletFileUpload uploader = new ServletFileUpload(factory);
-
-		List<FileItem> items = null;
-		try {
-			items = uploader.parseRequest(request);
-			for (FileItem fileItem : items) {
-			if (fileItem.isFormField()) {
-				// ´¦ÀíÆÕÍ¨±íµ¥Óò
-				String field = fileItem.getFieldName();// ±íµ¥ÓòÃû
-				System.out.println(field);
-
-				String value = fileItem.getString("UTF-8");
-				System.out.println(value);
-			} else {
-				// ½«ÁÙÊ±ÎÄ¼þ±£´æµ½Ö¸¶¨Ä¿Â¼
-				String fileName = fileItem.getName();// ÎÄ¼þÃû³Æ£¬×¢ÒâÊµ¼Ê¿ª·¢µÄÊ±ºòÎÄ¼þÃûÒªÓÃµ±Ç°Ê±¼äÃüÃû!
-				String filepath = this.getServletContext().getRealPath("\\") +"uploadfiles"+File.separator+fileName;//ÉÏ´«Â·¾¶ÔÚÊµ¼Ê¿ª·¢ÖÐÓÃthis.getServletContext().getRealPath("/uploadfiles")
-				System.out
-						.println(this.getServletContext().getRealPath("\\") +"uploadfiles"+File.separator+fileName);
-				System.out.println(fileName);
-				try {
-					fileItem.write(new File(filepath));
-				} catch (Exception e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}// Ö´ÐÐ±£´æ
-			}
-			}
-		} catch (FileUploadException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		
-		
-	}
-
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		doGet(request, response);
-	}
-
-}
+//package com.kunpeng.www.controller;
+//
+//import java.io.File;
+//import java.io.FileOutputStream;
+//import java.io.IOException;
+//import java.util.Arrays;
+//import java.util.List;
+//import java.util.UUID;
+//
+//import javax.servlet.ServletException;
+//import javax.servlet.ServletInputStream;
+//import javax.servlet.annotation.WebServlet;
+//import javax.servlet.http.HttpServlet;
+//import javax.servlet.http.HttpServletRequest;
+//import javax.servlet.http.HttpServletResponse;
+//
+//import org.apache.tomcat.util.http.fileupload.FileItem;
+//import org.apache.tomcat.util.http.fileupload.FileUploadBase;
+//import org.apache.tomcat.util.http.fileupload.FileUploadException;
+//import org.apache.tomcat.util.http.fileupload.RequestContext;
+//import org.apache.tomcat.util.http.fileupload.disk.DiskFileItemFactory;
+//import org.apache.tomcat.util.http.fileupload.servlet.ServletFileUpload;
+//
+//
+///**
+// * Servlet implementation class UpLoadPic
+// */
+//@WebServlet("/UpLoadPic")
+//public class UpLoadPic extends HttpServlet {
+//	private static final long serialVersionUID = 1L;
+//       
+//    /**
+//     * @see HttpServlet#HttpServlet()
+//     */
+//    public UpLoadPic() {
+//        super();
+//        // TODO Auto-generated constructor stub
+//    }
+//    static int i = 0;
+//	/**
+//	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+//	 */
+//	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+//		// TODO Auto-generated method stub
+//	//	response.setCharacterEncoding("utf-8");
+//		/*
+//	   ServletInputStream sis = request.getInputStream();
+//		File f = new File("e:\\", "b.txt");
+//		FileOutputStream fos = new FileOutputStream(f);
+//		byte[] b = new byte[1024];
+//		int n;
+//		while ((n = sis.read(b)) != -1) {
+//			String str = new String(b);
+//			System.out.println(str);
+//			fos.write(b, 0, n);
+//		}
+//
+//		fos.close();
+//		sis.close();
+//		*/
+//		//ï¿½Ï´ï¿½Í¼Æ¬ï¿½ï¿½ï¿½ï¿½
+//		
+//		/*ServletInputStream in = request.getInputStream();
+//		File file = new File(request.getSession().getServletContext().getRealPath("/img/"), "img_" + i + ".jpg");
+//				// response.getWriter().append(file.getPath());
+//				FileOutputStream out =new FileOutputStream(file);
+//			
+//				byte[] bytes = new byte[1024];
+//				int len=in.read(bytes, 0, 1024);
+//				while(len!=-1)
+//				{
+//					out.write(bytes, 0, len);
+//					 len=in.read(bytes, 0, 1024);
+//				}
+//
+//				out.close();
+//				in.close();*/
+//		
+//		
+//				/*
+//				 DiskFileItemFactory factory = new DiskFileItemFactory(1024*1024*5,new File(this.getServletContext().getRealPath("\\") +"uploadfiles"));        
+//				 // ï¿½ï¿½ï¿½Ã»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ð¡Îª 5M              
+//				 factory.setSizeThreshold(1024 * 1024 * 5);	
+//				 
+//				// ï¿½ï¿½ï¿½ï¿½Ò»ï¿½ï¿½ï¿½Ä¼ï¿½ï¿½Ï´ï¿½ï¿½Ä¾ï¿½ï¿½           
+//				 ServletFileUpload upload = new ServletFileUpload(factory);        
+//				 //ï¿½ï¿½ï¿½ï¿½ï¿½Ï´ï¿½ï¿½Ä¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ð¡ï¿½ï¿½ï¿½Ï´ï¿½ï¿½Äµï¿½ï¿½ï¿½ï¿½Ä¼ï¿½ï¿½ï¿½Ð¡         
+//				 upload.setSizeMax(1024*1024*50);           
+//				 upload.setFileSizeMax(1024*1024*5);          
+//				 try {                
+//					 //ï¿½ï¿½Ò³ï¿½ï¿½ï¿½ï¿½Ðµï¿½Ã¿Ò»ï¿½ï¿½ï¿½ï¿½Ôªï¿½Ø½ï¿½ï¿½ï¿½ï¿½ï¿½Ò»ï¿½ï¿½FileItem    
+//					 List<FileItem> items = upload.parseRequest(request);      
+//					 for (FileItem fileItem : items) {              
+//						 //ï¿½ï¿½ï¿½ï¿½ï¿½Ò»ï¿½ï¿½ï¿½ï¿½Í¨ï¿½Ä±ï¿½Ôªï¿½ï¿½(typeï¿½ï¿½ï¿½ï¿½fileï¿½Ä±ï¿½Ôªï¿½ï¿½)       
+//						 if(fileItem.isFormField()){          
+//							 System.out.println(fileItem.getFieldName());  //ï¿½Ãµï¿½ï¿½ï¿½Ó¦ï¿½ï¿½Ôªï¿½Øµï¿½ï¿½ï¿½ï¿½ï¿½   
+//							 System.out.println(fileItem.getString());  //ï¿½Ãµï¿½ï¿½ï¿½Ôªï¿½Øµï¿½Öµ          
+//							 }else{                           
+//								 //ï¿½ï¿½È¡ï¿½Ä¼ï¿½ï¿½Äºï¿½×ºï¿½ï¿½         
+//								 String fileName = fileItem.getName();//ï¿½Ãµï¿½ï¿½Ä¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½          
+//								 String fileExt = fileName.substring(fileName.lastIndexOf(".")+1, fileName.length());        
+//									 try {                                  
+//										 //ï¿½ï¿½ï¿½Ä¼ï¿½ï¿½Ï´ï¿½ï¿½ï¿½ï¿½ï¿½Ä¿ï¿½ï¿½uploadÄ¿Â¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½getRealPathï¿½ï¿½ï¿½ÔµÃµï¿½ï¿½ï¿½webï¿½ï¿½Ä¿ï¿½Â°ï¿½ï¿½ï¿½/uploadï¿½Ä¾ï¿½ï¿½ï¿½Â·ï¿½ï¿½//    
+//										 fileItem.write(new File(request.getServletContext().getRealPath("/uploadfiles")+"/" + UUID.randomUUID().toString()+"."+fileExt));                                 
+//										 fileItem.write(new File(request.getSession().getServletContext().getRealPath("/img/"), "img_" + i + ".jpg"));                  
+//										      
+//										 } catch (Exception e) {             
+//											 e.printStackTrace();          
+//											 }                       
+//								 }                   
+//						 }            
+//					 } catch (FileUploadBase.SizeLimitExceededException e) {       
+//						 System.out.println("ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä´ï¿½Ð¡ï¿½ï¿½ï¿½ï¿½ï¿½Ë¹æ¶¨ï¿½Ä´ï¿½Ð¡...");     
+//						 } catch (FileUploadBase.FileSizeLimitExceededException e) {     
+//							 System.out.println("ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ò»ï¿½ï¿½ï¿½Ï´ï¿½ï¿½Ä¼ï¿½ï¿½Ä´ï¿½Ð¡ï¿½ï¿½ï¿½ï¿½ï¿½Ë¹æ¶¨ï¿½Ä´ï¿½Ð¡...");    
+//							 }catch (FileUploadException e) {              
+//								 e.printStackTrace();           
+//							}
+//									 
+//					 */
+//				 
+//				 
+//				 
+//				 
+//				 
+//				 
+//				
+//		DiskFileItemFactory factory = new DiskFileItemFactory();
+//		ServletFileUpload uploader = new ServletFileUpload(factory);
+//
+//		List<FileItem> items = null;
+//		try {
+//			items = uploader.parseRequest((RequestContext)request);
+//			for (FileItem fileItem : items) {
+//			if (fileItem.isFormField()) {
+//				// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Í¨ï¿½ï¿½ï¿½ï¿½
+//				String field = fileItem.getFieldName();// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+//				System.out.println(field);
+//
+//				String value = fileItem.getString("UTF-8");
+//				System.out.println(value);
+//			} else {
+//				// ï¿½ï¿½ï¿½ï¿½Ê±ï¿½Ä¼ï¿½ï¿½ï¿½ï¿½æµ½Ö¸ï¿½ï¿½Ä¿Â¼
+//				String fileName = fileItem.getName();// ï¿½Ä¼ï¿½ï¿½ï¿½ï¿½Æ£ï¿½×¢ï¿½ï¿½Êµï¿½Ê¿ï¿½ï¿½ï¿½ï¿½ï¿½Ê±ï¿½ï¿½ï¿½Ä¼ï¿½ï¿½ï¿½Òªï¿½Ãµï¿½Ç°Ê±ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½!
+//				String filepath = this.getServletContext().getRealPath("\\") +"uploadfiles"+File.separator+fileName;//ï¿½Ï´ï¿½Â·ï¿½ï¿½ï¿½ï¿½Êµï¿½Ê¿ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½this.getServletContext().getRealPath("/uploadfiles")
+//				System.out
+//						.println(this.getServletContext().getRealPath("\\") +"uploadfiles"+File.separator+fileName);
+//				System.out.println(fileName);
+//				try {
+//					fileItem.write(new File(filepath));
+//				} catch (Exception e) {
+//					// TODO Auto-generated catch block
+//					e.printStackTrace();
+//				}// Ö´ï¿½Ð±ï¿½ï¿½ï¿½
+//			}
+//			}
+//		} catch (FileUploadException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
+//		
+//		
+//	}
+//
+//	/**
+//	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+//	 */
+//	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+//		// TODO Auto-generated method stub
+//		doGet(request, response);
+//	}
+//
+//}

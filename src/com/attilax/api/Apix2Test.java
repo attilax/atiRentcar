@@ -6,8 +6,10 @@ package com.attilax.api;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 
+import com.attilax.cfg.IocX;
 import com.attilax.io.filex;
 import com.attilax.io.pathx;
+import com.attilax.net.requestImp;
 import com.attilax.net.websitex;
 
 /**
@@ -23,14 +25,23 @@ public class Apix2Test {
 	 
 	 */
 	public static void main(String[] args) throws UnsupportedEncodingException {
+		
+		//org.slf4j.spi.LoggerFactoryBinder
+	//  org.slf4j.spi.LoggerFactoryBinder
 		//String f=pathx.classPath(ApiTest.class)+"goodslist.json";
 		//String t=filex.read(f);
+//		
+//		String	t= " getUserInfo (  SELECT * FROM `mall_user_info` where user_id=8 ) ";	 
+//		String url="http://localhost:8090/shopitfs/api2.jsp?data="+URLEncoder.encode(t,"utf8");
+//	//	url="http://192.168.1.33/vod/api.jsp?sign=xxxx&submethod=postDownTaskBackfeed4notice&param=%7B%22dsId%22%3A1554%2C%22equipmentId%22%3A1081%7D&appid=863778010205109";
+//		System.out.println(url);
+//		System.out.println(websitex.WebpageContent(url));;
+		ApiX2  ap=IocX.getBean(ApiX2.class);
+		requestImp ri=new requestImp();
+		ri.setParam("data", "sql( SELECT * FROM `hx_car` where id=2; )");
+		System.out.println( ap.handleReq(ri));
+	 
 		
-		String	t= " getUserInfo (  SELECT * FROM `mall_user_info` where user_id=8 ) ";	 
-		String url="http://localhost:8090/shopitfs/api2.jsp?data="+URLEncoder.encode(t,"utf8");
-	//	url="http://192.168.1.33/vod/api.jsp?sign=xxxx&submethod=postDownTaskBackfeed4notice&param=%7B%22dsId%22%3A1554%2C%22equipmentId%22%3A1081%7D&appid=863778010205109";
-		System.out.println(url);
-		System.out.println(websitex.WebpageContent(url));;
 
 	}
 

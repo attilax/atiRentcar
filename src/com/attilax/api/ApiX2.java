@@ -55,7 +55,7 @@ public class ApiX2 extends HandlerChain {
 
 	}
 
-	public String handleReq(final HttpServletRequest req) throws Exception {
+	public String handleReq(final HttpServletRequest req)   {
 		// core.logMap(req.getParameterMap());
 		try {
 			logReq(req);

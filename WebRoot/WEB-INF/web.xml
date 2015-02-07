@@ -15,6 +15,23 @@
         </init-param>
     </filter>
     
+       <servlet>
+	     <servlet-name>spring</servlet-name>     
+	
+	     <servlet-class>com.kunpeng.www.controller.AppServlet</servlet-class>     
+	
+     
+
+ </servlet>     
+
+ <servlet-mapping>     
+
+     <servlet-name>spring</servlet-name>  <!-- 这里在配成spring,下边也要写一个名为spring-servlet.xml的文件，主要用来配置它的controller -->   
+
+     <url-pattern>/AppServlet2</url-pattern>     
+
+ </servlet-mapping>  
+    
 
   
     <filter-mapping>

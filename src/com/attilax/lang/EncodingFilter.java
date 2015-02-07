@@ -20,6 +20,7 @@ public class EncodingFilter implements Filter {
 	private String charset;  
 	public void destroy() {
 		// TODO Auto-generated method stub
+		System.out.println("");
 
 	}
 

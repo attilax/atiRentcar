@@ -10,6 +10,7 @@ import com.attilax.api.ApiX2;
 import com.attilax.cfg.ApiInier;
 import www.Hbx4shp;
 import com.attilax.api.ApiX;
+import com.attilax.cfg.IocX;
 import com.attilax.api.HandlerChain;
 import java.sql.*;
 
@@ -60,7 +61,7 @@ public class _api_0dsl__jsp extends com.caucho.jsp.JavaPage
     out.write(_jsp_string0, 0, _jsp_string0.length);
     
 new ApiInier().ini();
-ApiX2 ax=new ApiX2();
+ApiX2 ax= IocX.getBean(ApiX2.class);
 //ax.hbx=Hbx4shp.getStance();
  
     out.write(_jsp_string1, 0, _jsp_string1.length);
@@ -124,7 +125,7 @@ ApiX2 ax=new ApiX2();
     String resourcePath = loader.getResourcePathSpecificFirst();
     mergePath.addClassPath(resourcePath);
     com.caucho.vfs.Depend depend;
-    depend = new com.caucho.vfs.Depend(appDir.lookup("api_dsl.jsp"), -5593939911310293378L, false);
+    depend = new com.caucho.vfs.Depend(appDir.lookup("api_dsl.jsp"), -2336843748762341926L, false);
     _caucho_depends.add(depend);
   }
 
@@ -159,7 +160,7 @@ ApiX2 ax=new ApiX2();
   private final static char []_jsp_string0;
   private final static char []_jsp_string1;
   static {
-    _jsp_string0 = "\r\n\r\n\r\n\r\n\r\n\r\n".toCharArray();
+    _jsp_string0 = "\r\n\r\n\r\n\r\n\r\n\r\n\r\n".toCharArray();
     _jsp_string1 = "\r\n".toCharArray();
   }
 }

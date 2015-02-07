@@ -11,7 +11,7 @@ import com.kunpeng.www.config.DBXMLTool;
 import com.kunpeng.www.domain.DBVo;
 import com.kunpeng.www.server.AppAction;
 
-/**
+/**   com.kunpeng.www.controller.AppServlet
  * Servlet implementation class AppServlet
  */
 @WebServlet("/AppServlet")
@@ -34,27 +34,31 @@ public class AppServlet extends HttpServlet {
 			HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		System.out.println("doGet");
-		response.setCharacterEncoding("GB2312");
+	//	response.setContentType(arg0)
+		 //è¿™å¥è¯çš„æ„æ€ï¼Œæ˜¯è®©æµè§ˆå™¨ç”¨utf8æ¥è§£æè¿”å›çš„æ•°æ®  
+        response.setHeader("Content-type", "text/html;charset=UTF-8");  
+		response.setCharacterEncoding("utf-8");
 
 		String action = null;
 		try {
 			action = request.getParameter("action");
 			// response.getWriter().append(action);
 			if (action.equals(null)) {
-				response.getWriter().append("²ÎÊı´«µİ´íÎó£¡");
+				response.getWriter().append("ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½İ´ï¿½ï¿½ï¿½");
 				return;
 			}
 		} catch (Exception e) {
-			response.getWriter().append("²ÎÊı´«µİ´íÎó£¡");
+			response.getWriter().append("ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½İ´ï¿½ï¿½ï¿½");
 			return;
 		}
-		//response.getWriter().append("½øĞĞÏà¹Ø²Ù×÷");
+		//response.getWriter().append("ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ø²ï¿½ï¿½ï¿½");
 		try {
 			System.out.println("action="+action);
 			AppAction appserver=new AppAction(request, response);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+			throw new RuntimeException(e);
 		}
 		
 	}

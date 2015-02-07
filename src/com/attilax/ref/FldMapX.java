@@ -19,7 +19,7 @@ import com.attilax.withdraw.Withdraw;
  */
 public class FldMapX {
 
-		/**
+		/** 
 		@author attilax 老哇的爪子
 		@since   p1s e_i_d
 		 

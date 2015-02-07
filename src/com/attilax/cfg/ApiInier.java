@@ -14,12 +14,13 @@ import www.Hbx4shp;
 //import www.attilax.lang.ref.RefX;
 
 
-import www.attilax.car.carT;
+import www.attilax.car.kaT;
 
 import com.attilax.core;
 //import com.attilax.acc.AccX;
 import com.attilax.api.Handler;
 import com.attilax.api.HandlerChain;
+import com.attilax.car.HxCar;
 import com.attilax.io.pathx;
 import com.attilax.lang.jsonX;
 import com.attilax.lang.ref.FldMapX;
@@ -27,6 +28,7 @@ import com.attilax.lang.ref.RefX;
  
 import com.attilax.net.ResponseX;
 import com.attilax.net.requestImp;
+import com.attilax.persistence.PX;
 import com.attilax.time.timeUtil;
 import com.kunpeng.www.dao.CarDAOImp;
 //import com.attilax.withdraw.Withdraw;
@@ -39,7 +41,7 @@ import com.kunpeng.www.server.AppAction;
  */
 public class ApiInier {
 
-		/**
+		/**   
 		@author attilax 老哇的爪子
 		@since   p1q d_40_37
 		 
@@ -49,18 +51,19 @@ public class ApiInier {
 
 			@Override
 			public Object handleReq(Object arg) throws Exception {
+				System.out.println("--");
 				JSONObject jo=JSONObject.fromObject(arg.toString());
-				CarVo car=new CarVo();
-				Map fldMpper=	FldMapX.frmTxt(pathx.classPath(carT.class)+"/carMap.txt");
+				HxCar car=new HxCar();
+				Map fldMpper=	FldMapX.frmTxt(pathx.classPath(kaT.class)+"/carMap.txt");
 				System.out.println(core.toJsonStrO88(fldMpper));
 				RefX.copyProperties(jo, car,fldMpper);	 
-				CarDAOImp cdc=new CarDAOImp();
-						cdc.save(car);
+				PX px=IocX.getBean(PX.class);
+			 	px.save(car);
 
 				// System.out.println(core.toJsonStrO88(g));
 				 // g.setShopId(jo.getInt("shop_id"));
 			//  Hbx4shp.getStance().save(g);
-				return "";
+				return core.toJsonStrO88(car);
 			}});
 		
 		

@@ -1,7 +1,7 @@
 Lpn,sn
 Brandid,Brandid
 Gearbox,speedtype
-pickupLocation,streets
+pickupLocation,workplace
 Price,Price
 Displacement,pailiang
 description,seller_note

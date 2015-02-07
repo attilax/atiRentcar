@@ -3,18 +3,20 @@ package com.kunpeng.www.server;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.ServletInputStream;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
-import org.apache.tomcat.util.http.fileupload.FileItem;
-import org.apache.tomcat.util.http.fileupload.FileUploadException;
-import org.apache.tomcat.util.http.fileupload.RequestContext;
-import org.apache.tomcat.util.http.fileupload.disk.DiskFileItemFactory;
-import org.apache.tomcat.util.http.fileupload.servlet.ServletFileUpload;
+//
+//import org.apache.tomcat.util.http.fileupload.FileItem;
+//import org.apache.tomcat.util.http.fileupload.FileUploadException;
+//import org.apache.tomcat.util.http.fileupload.RequestContext;
+//import org.apache.tomcat.util.http.fileupload.disk.DiskFileItemFactory;
+//import org.apache.tomcat.util.http.fileupload.servlet.ServletFileUpload;
 
 import com.attilax.user.PwdErrEx;
 import com.attilax.user.UserAlreadyExistEx;
@@ -66,100 +68,114 @@ public class AppAction {
 			}
 			return;
 		}
-
-		switch (action) {
-
-		case "GetCarList":
+		Map<String, Integer> m=new HashMap<String, Integer>();
+		m.put("SendReg", 1);
+		m.put("GetCarList", 2);
+		m.put("GetProvinceList", 3);
+		m.put("GetCityList", 4);
+		m.put("GetAreaList", 5);
+		m.put("GetStreetList", 6);
+		m.put("GetSpeedtypeList", 7);
+		
+		m.put("UploadCarPic", 9);
+		m.put("SendLogin", 10);
+		m.put("Login", 11);
+		m.put("UserLogin", 12);
+		 
+		int cse_int=m.get(action);
+		switch (cse_int) {
+			 
+		case 2:
 			// response.getWriter().append("Login��¼������");
 			getCarList();
 
 			break;
 
-		case "GetProvinceList":
+		case 3:
 			// response.getWriter().append("Login��¼������");
 			getProvinceList();
 
 			break;
-		case "GetCityList":
+		case 4:
 			// response.getWriter().append("Login��¼������");
 			getGetCityList();
 
 			break;
-		case "GetAreaList":
+		case 5:
 			// response.getWriter().append("Login��¼������");
 			getGetAreaList();
 
 			break;
-		case "GetStreetList":
+		case 6:
 			// response.getWriter().append("Login��¼������");
 			getGetStreetList();
 
 			break;
-		case "GetSpeedtypeList":
+		case 7:
 			// response.getWriter().append("Login��¼������");
 			GetSpeedtypeList();
 
 			break;
-		case "GetDaytypeList":
-			// response.getWriter().append("Login��¼������");
-			GetDaytypeList();
-
-			break;
-		case "GetCartype":
-			// response.getWriter().append("Login��¼������");
-			GetCartypeList();
-
-			break;
-		case "GetSntype":
-			// response.getWriter().append("Login��¼������");
-			GetSntypeList();
-
-			break;
-		case "GetUser":
-			// response.getWriter().append("Login��¼������");
-			GetUserInfo();
-
-			break;
-		case "GetCarPic":
-			// response.getWriter().append("Login��¼������");
-			GetCarPic();
+//		case "GetDaytypeList":
+//			// response.getWriter().append("Login��¼������");
+//			GetDaytypeList();
+//
+//			break;
+//		case "GetCartype":
+//			// response.getWriter().append("Login��¼������");
+//			GetCartypeList();
+//
+//			break;
+//		case "GetSntype":
+//			// response.getWriter().append("Login��¼������");
+//		//	GetSntypeList();
+//
+//			break;
+//		case "GetUser":
+//			// response.getWriter().append("Login��¼������");
+//		//	GetUserInfo();
+//
+//			break;
+//		case "GetCarPic":
+//			// response.getWriter().append("Login��¼������");
+//		//	GetCarPic();
 			
-			break;
-		case "UploadCarPic":
+		//	break;
+		case 9:
 			// response.getWriter().append("Login��¼������");
 			UploadCarPic();
 
 			break;
-		case "SendLogin":
+		case 10:
 
 			// response.getWriter().append("Login��¼������");
 		//	doSendLogin();
 			doLogin();
 
 			break;
-
-		case "Login":
+		
+		case 11:
 			// response.getWriter().append("Login��¼������");
 			doLogin();
 
 			break;
-		case "UserLogin":
+		case 12:
 			// response.getWriter().append("Login��¼������");
 			doUserLogin();
 
 			break;
-		case "SendReg":
+		case 1:
 			// response.getWriter().append("Login��¼������");
 			doSendReg();
 
 			break;
-		case "SaveTalk":
-			// response.getWriter().append("Login��¼������");
-			SaveTalk();
-
-			break;
+//		case "SaveTalk":
+//			// response.getWriter().append("Login��¼������");
+//			SaveTalk();
+//
+//			break;
 		default:
-			response.getWriter().append("�������ݴ���");
+			response.getWriter().append("no this action");
 			break;
 		}
 
@@ -210,71 +226,71 @@ public class AppAction {
 	static int i = 0;
 
 	private void UploadCarPic() throws Exception {
-		String typeid = "";
-		String id = "";
-
-		typeid = this.request.getParameter("typeid");
-		id = this.request.getParameter("id");
-		if (typeid == null) {
-			typeid = "";
-		}
-		if (id == null) {
-			id = "";
-		}
-
-		// System.out.println("typeid="+typeid);
-		// System.out.println("id="+id);
-
-		DiskFileItemFactory factory = new DiskFileItemFactory();
-		ServletFileUpload uploader = new ServletFileUpload(factory);
-
-		List<FileItem> items = null;
-		try {
-			items = uploader.parseRequest((RequestContext)request);
-			for (FileItem fileItem : items) {
-				if (fileItem.isFormField()) {
-					// ������ͨ����
-					String field = fileItem.getFieldName();// ������
-					System.out.println(field);
-
-					String value = fileItem.getString("UTF-8");
-					System.out.println(value);
-				} else {
-					// ����ʱ�ļ����浽ָ��Ŀ¼
-					String fileName = fileItem.getName();// �ļ����ƣ�ע��ʵ�ʿ�����ʱ���ļ���Ҫ�õ�ǰʱ������!
-
-					String picname = fileName.substring(0,
-							fileName.length() - 4);
-					String fileNewName = Comm.getPicName()
-							+ fileName.substring(fileName.length() - 4,
-									fileName.length());
-					String picurl = "uploadfiles/" + fileNewName;
-
-					String filepath = request.getSession().getServletContext()
-							.getRealPath("\\")
-							+ "uploadfiles" + File.separator + fileNewName;// �ϴ�·����ʵ�ʿ�������this.getServletContext().getRealPath("/uploadfiles")
-					// String filepath =
-					// request.getSession().getServletContext().getRealPath("\\")
-					// +"img"+File.separator+fileName;//�ϴ�·����ʵ�ʿ�������this.getServletContext().getRealPath("/uploadfiles")
-
-					System.out.println(request.getSession().getServletContext()
-							.getRealPath("\\")
-							+ "uploadfiles" + File.separator + fileName);
-					System.out.println(fileName);
-					try {
-						fileItem.write(new File(filepath));
-
-					} catch (Exception e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					}// ִ�б���
-					CarPicController.saveCarPic(typeid, id, picname, picurl);
-				}
-			}
-		} catch (FileUploadException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+//		String typeid = "";
+//		String id = "";
+//
+//		typeid = this.request.getParameter("typeid");
+//		id = this.request.getParameter("id");
+//		if (typeid == null) {
+//			typeid = "";
+//		}
+//		if (id == null) {
+//			id = "";
+//		}
+//
+//		// System.out.println("typeid="+typeid);
+//		// System.out.println("id="+id);
+//
+//		DiskFileItemFactory factory = new DiskFileItemFactory();
+//		ServletFileUpload uploader = new ServletFileUpload(factory);
+//
+//		List<FileItem> items = null;
+//		try {
+//			items = uploader.parseRequest((RequestContext)request);
+//			for (FileItem fileItem : items) {
+//				if (fileItem.isFormField()) {
+//					// ������ͨ����
+//					String field = fileItem.getFieldName();// ������
+//					System.out.println(field);
+//
+//					String value = fileItem.getString("UTF-8");
+//					System.out.println(value);
+//				} else {
+//					// ����ʱ�ļ����浽ָ��Ŀ¼
+//					String fileName = fileItem.getName();// �ļ����ƣ�ע��ʵ�ʿ�����ʱ���ļ���Ҫ�õ�ǰʱ������!
+//
+//					String picname = fileName.substring(0,
+//							fileName.length() - 4);
+//					String fileNewName = Comm.getPicName()
+//							+ fileName.substring(fileName.length() - 4,
+//									fileName.length());
+//					String picurl = "uploadfiles/" + fileNewName;
+//
+//					String filepath = request.getSession().getServletContext()
+//							.getRealPath("\\")
+//							+ "uploadfiles" + File.separator + fileNewName;// �ϴ�·����ʵ�ʿ�������this.getServletContext().getRealPath("/uploadfiles")
+//					// String filepath =
+//					// request.getSession().getServletContext().getRealPath("\\")
+//					// +"img"+File.separator+fileName;//�ϴ�·����ʵ�ʿ�������this.getServletContext().getRealPath("/uploadfiles")
+//
+//					System.out.println(request.getSession().getServletContext()
+//							.getRealPath("\\")
+//							+ "uploadfiles" + File.separator + fileName);
+//					System.out.println(fileName);
+//					try {
+//						fileItem.write(new File(filepath));
+//
+//					} catch (Exception e) {
+//						// TODO Auto-generated catch block
+//						e.printStackTrace();
+//					}// ִ�б���
+//					CarPicController.saveCarPic(typeid, id, picname, picurl);
+//				}
+//			}
+//		} catch (FileUploadException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
 
 		// response.getWriter().append(
 		// "{\"table\":[{" + GetPublic.sntypeJson(typeid, id) + "}]}");
@@ -540,6 +556,8 @@ public class AppAction {
 	}
 
 	private void getCarList() throws Exception {
+		
+		
 		// TODO Auto-generated method stub
 		String page = "";
 		String num = "";

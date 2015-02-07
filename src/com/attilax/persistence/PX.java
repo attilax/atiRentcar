@@ -4,7 +4,7 @@
  */
 package com.attilax.persistence;
 import com.attilax.core;
-import com.focustar.elmt.GvMaterial;
+ 
 
 import static  com.attilax.core.*;
 
@@ -14,12 +14,13 @@ import java.io.*;
 import org.hibernate.Query;
 import org.hibernate.SQLQuery;
 import org.hibernate.Session;
+import org.hibernate.SharedSessionContract;
 import org.hibernate.transform.Transformers;
 /**
  * @author  attilax 老哇的爪子
  *@since  Sep 3, 2014 5:45:50 AM$
  */
-public class PX extends Hbx {
+public class PX   {
 
 	/**
 	@author attilax 老哇的爪子
@@ -81,6 +82,16 @@ public class PX extends Hbx {
 	   	  }
 		//}
 
+			/**
+		@author attilax 老哇的爪子
+		@since   p25 i_58_d
+		 
+		 */
+	private void closeSession(Session s) {
+		// TODO Auto-generated method stub
+		
+	}
+
 		/**
 		@author attilax 老哇的爪子
 		@since   oaq f_41_t
@@ -93,6 +104,16 @@ public class PX extends Hbx {
 		List list=	SQLQueryx.list();
 		return list;
 	}
+
+			/**
+			@author attilax 老哇的爪子
+			@since   p25 i_58_h
+			 
+			 */
+		private Session getSession() {
+			// TODO Auto-generated method stub
+			return null;
+		}
 
 	
 }

@@ -60,4 +60,14 @@ public class RefX {
 		
 	}
 
+		/**
+		@author attilax 老哇的爪子
+		@since   p26 j_n_g
+		 
+		 */
+	public static Object getUniName(String objFld) {
+		// TODO Auto-generated method stub
+		return objFld.replaceAll("_", "").toLowerCase();
+	}
+
 }
